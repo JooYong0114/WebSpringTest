@@ -11,38 +11,51 @@ import com.allured.test.lesson03.bo.RealEstateBO;
 import com.allured.test.lesson03.model.RealEstate;
 
 @RestController
-@RequestMapping("/lesson03/test01")
+@RequestMapping("/lesson03")
 public class RealEstateController {
 	
 	@Autowired
 	private RealEstateBO realEstateBO;
 	
-	@RequestMapping("/1")
+	@RequestMapping("/test01/1")
 	public RealEstate test01_1(
 			@RequestParam("id") int id) {
 		return realEstateBO.getRealEstate(id);
 	}
 	
-	@RequestMapping("/2")
+	@RequestMapping("/test01/2")
 	public List<RealEstate> test01_2(
 			@RequestParam("rent") int rent) {
 		return realEstateBO.getRealEstate2(rent);
 	}
 	
-	@RequestMapping("/3")
+	@RequestMapping("/test01/3")
 	public List<RealEstate> test01_3(
 			@RequestParam("area") int area,
 			@RequestParam("price") int price) {
 		return realEstateBO.getRealEstate3(area, price);
 	}
 	
-	// 파라미터 여러게 일때 (실험)
-	@RequestMapping("/4")
-	public List<RealEstate> test01_4(
-			@RequestParam("type") String type,
-			@RequestParam("area") int area,
-			@RequestParam("price") int price,
-			@RequestParam("address") String address) {
-		return realEstateBO.getRealEstate4(type, area, price, address);
+	@RequestMapping("/test02/1")
+	public String test02_1() {
+		RealEstate realEstate = new RealEstate();
+		
+		realEstate.setRealtorId(3);
+		realEstate.setAddress("푸르지용 리버 303동 1104호");
+		realEstate.setArea(89);
+		realEstate.setType("매매");
+		realEstate.setPrice(100000);
+		
+		int count = realEstateBO.addRealEstate(realEstate);
+		
+		return "입력 성공 : " + count;
+	}
+	
+	@RequestMapping("/test02/2")
+	public String test02_2(
+			@RequestParam("realtorId") int realtorId) {
+		int count = realEstateBO.addRealEstate(realtorId ,"샹떼빌리버 오피스텔 814호", 45, "월세", 100000, 120);
+		
+		return "입력 성공 : " + count;
 	}
 }

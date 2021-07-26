@@ -25,8 +25,16 @@ public class RealEstateBO {
 		return realEstateDAO.selectRealEstate3(area, price);
 	}
 	
-	// 파라미터 여러게 일때 (실험)
-	public List<RealEstate> getRealEstate4(String type, int area, int price, String address) {
-		return realEstateDAO.selectRealEstate4(type, area, price, address);
+	public int addRealEstate(RealEstate realEstate) {
+		return realEstateDAO.insertRealEstate(realEstate);
+	}
+	
+	public int addRealEstate(int realtorId,
+			String address,
+			int area,
+			String type,
+			int price,
+			int rentPrice) {
+		return realEstateDAO.insertRealEstateFromField(realtorId, address, area, type, price, rentPrice);
 	}
 }

@@ -64,30 +64,48 @@
  		]]>
  	</select>
  	
- 	<!-- parameterType이 여러개 일때 (실험) -->
- 	<select id="selectRealEstate4" resultType="com.allured.test.lesson03.model.RealEstate"
- 	parameterType="map">
- 		SELECT
- 			`id`
- 			, `realtorId`
+ 	
+ 	<insert id="insertRealEstate" parameterType="com.allured.test.lesson03.model.RealEstate">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
  			, `address`
  			, `area`
  			, `type`
  			, `price`
- 			, `rentPrice`
  			, `createdAt`
  			, `updatedAt`
- 		FROM
- 			`real_estate`
- 		WHERE
- 		<![CDATA[
- 			`type` = #{type}
- 		AND	
- 			`area` <= #{area}
- 		AND
- 			`price` <= #{price}
- 		AND
- 			`address` LIKE CONCAT(#{address},'%')
- 		]]>
- 	</select>
+ 		) VALUES
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, now()
+ 			, now()
+ 		)
+ 	</insert>
+ 	
+ 	<insert id="insertRealEstateFromField" parameterType="map">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+ 			, `address`
+ 			, `area`
+ 			, `type`
+ 			, `price`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		) VALUES
+ 		(
+ 			#{realtorId}
+ 			, #{address}
+ 			, #{area}
+ 			, #{type}
+ 			, #{price}
+ 			, now()
+ 			, now()
+ 		)
+ 	</insert>
  </mapper>
