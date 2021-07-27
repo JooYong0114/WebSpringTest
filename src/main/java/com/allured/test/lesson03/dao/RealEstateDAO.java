@@ -23,4 +23,7 @@ public interface RealEstateDAO {
 			@Param("price") int price,
 			@Param("rentPrice") int rentPrice);
 	
+	public int updateRealEstateById(RealEstate realEstate);
+
+	public int deleteRealEstateById(@Param("id") int id);
 }

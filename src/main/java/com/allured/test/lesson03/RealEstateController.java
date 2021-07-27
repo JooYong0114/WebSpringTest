@@ -58,4 +58,21 @@ public class RealEstateController {
 		
 		return "입력 성공 : " + count;
 	}
+	
+	@RequestMapping("/test03")
+	public String test03() {
+		RealEstate realEstate = new RealEstate();
+		realEstate.setType("전세");
+		realEstate.setPrice(70000);
+		realEstate.setId(5);
+		int count = realEstateBO.updateRealEstateById(realEstate);
+		return "수정 성공 : " + count;
+	}
+	
+	@RequestMapping("/test04")
+	public String test04(
+			@RequestParam("id") int id) {
+		int count = realEstateBO.deleteRealEstateById(id);
+		return "삭제 성공 : " + count;
+	}
 }

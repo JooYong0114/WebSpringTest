@@ -111,4 +111,21 @@
  		)
  	</insert>
 
+	<update id="updateRealEstateById" parameterType="com.allured.test.lesson03.model.RealEstate">
+		UPDATE
+			`real_estate`
+		SET
+			`type` = #{type}
+			, `price` = #{price}
+		WHERE
+			`id` = #{id}
+	</update>
+	
+	<delete id="deleteRealEstateById" parameterType="map">
+		DELETE
+		FROM
+			`real_estate`
+		WHERE
+			`id` = #{id}
+	</delete>
  </mapper>
