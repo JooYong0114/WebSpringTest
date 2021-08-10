@@ -20,4 +20,22 @@ public class FavoriteBO {
 	public int addFavorite(String name, String url) {
 		return favoriteDAO.insertFavorite(name, url);
 	}
+	
+	public boolean existUrl(String url) {
+		if(favoriteDAO.selectCountUrl(url) == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	public boolean deleteFavorite(int id) {
+		if(favoriteDAO.deleteFavorite(id) > 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 }

@@ -16,25 +16,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.allured.test.lesson06.bo.FavoriteBO;
 import com.allured.test.lesson06.model.Favorite;
 
-@RequestMapping("/lesson06/test01")
+@RequestMapping("/lesson06")
 @Controller
 public class FavoriteController {
 	@Autowired
 	private FavoriteBO favoriteBO;
 	
-	@GetMapping("/home")
+	@GetMapping("/test01/home")
 	public String homeView(Model model) {
 		List<Favorite> favoriteList = favoriteBO.getFavoriteList();
 		model.addAttribute("favoriteList", favoriteList);
 		return "lesson06/test01_home";
 	}
 	
-	@GetMapping("/input")
+	@GetMapping("/test01/input")
 	public String inputView() {
 		return "lesson06/test01_add";
 	}
 	
-	@PostMapping("/add")
+	@PostMapping("/test01/add")
 	@ResponseBody
 	public Map<String, String> addFavorite(@RequestParam("name") String name,
 			@RequestParam("url") String url) {
@@ -43,5 +43,50 @@ public class FavoriteController {
 		Map<String, String> result = new HashMap<>();
 		result.put("result", "입력 성공!");
 		return result;
+	}
+	
+	@GetMapping("/test02/home")
+	public String favoriteList(Model model) {
+		List<Favorite> favoriteList = favoriteBO.getFavoriteList();
+		model.addAttribute("favoriteList", favoriteList);
+		return "lesson06/test02_home";
+	}
+	
+	@GetMapping("/test02/input")
+	public String addFavorite() {
+		return "lesson06/test02_add";
+	}
+	
+	@PostMapping("/test02/add")
+	@ResponseBody
+	public Map<String, Boolean> checkDuplication(
+			@RequestParam("url") String url) {
+		
+		Map<String, Boolean> result = new HashMap<>();
+		
+		if(favoriteBO.existUrl(url)) {
+			result.put("isDuplicate", true);
+		}
+		else {
+			result.put("isDuplicate", false);
+		}
+		
+		return result;
+	}
+	
+	@GetMapping("/test02/delete")
+	@ResponseBody
+	public Map<String, Boolean> deleteUrl(
+			@RequestParam("id") int id) {
+		Map<String, Boolean> delete = new HashMap<>();
+		
+		if(favoriteBO.deleteFavorite(id)) {
+			delete.put("delete", true);
+		}
+		else {
+			delete.put("delete", false);
+		}
+		
+		return delete;
 	}
 }
