@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.allured.test.lesson06.dao.BookingDAO">
+	<select id="selectBookingList" resultType="com.allured.test.lesson06.model.Booking">
+		SELECT
+			`id`
+			, `name`
+			, `headcount`
+			, `day`
+			, `date`
+			, `phoneNumber`
+			, `state`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`booking`
+		ORDER BY
+			`date`
+	</select>
+	
+	<insert id="insertBooking" parameterType="map">
+		INSERT INTO
+			`booking`
+		(
+			`name`
+			, `headcount`
+			, `day`
+			, `date`
+			, `phoneNumber`
+			, `state`
+			, `createdAt`
+			, `updatedAt`
+		) 
+		VALUES (
+			#{name}
+			, #{headcount}
+			, #{day}
+			, #{date}
+			, #{phoneNumber}
+			, '대기중'
+			, now()
+			, now()
+		)
+	</insert>
+	
+	<delete id="deleteBooking" parameterType="int">
+		DELETE FROM
+			`booking`
+		WHERE
+			`id` = #{id}
+	</delete>
+	
+	<select id="selectBooking" resultType="com.allured.test.lesson06.model.Booking" parameterType="String">
+		SELECT
+			`name`
+			, `date`
+			, `day`
+			, `headcount`
+			, `state`
+		FROM
+			`booking`
+		WHERE
+			`name` = #{name}
+		AND
+			`phoneNumber` = #{phoneNumber}
+	</select>
+</mapper>
